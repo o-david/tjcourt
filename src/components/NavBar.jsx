@@ -15,7 +15,7 @@ const NavBar = () => {
         Home
       </NavLink>
       <NavLink to="/table">Table</NavLink>
-      <NavLink to="/fixtures">Random Fixtures</NavLink>
+      <NavLink to="/fixtures">Fixtures</NavLink>
       <NavLink to="/matches">Matches</NavLink>
     </nav>
   );
