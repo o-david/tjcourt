@@ -97,7 +97,7 @@ const MatchDetailsPage = () => {
                   <th>{match.playerB}</th>
                 </tr>
               </thead>
-              <tbody>
+              {/* <tbody>
                 {match.sets.map((s, i) => (
                   <tr key={i}>
                     <td>{i + 1}</td>
@@ -105,7 +105,7 @@ const MatchDetailsPage = () => {
                     <td>{s.B}</td>
                   </tr>
                 ))}
-              </tbody>
+              </tbody> */}
             </table>
           </div>
           {match.stats && (
