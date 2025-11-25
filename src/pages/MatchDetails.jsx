@@ -1,59 +1,69 @@
-import React from 'react'
-import { useParams, Link } from 'react-router-dom'
-import data from '../data/clubData.json'
-import SEO from '../components/SEO.jsx'
+import React from "react";
+import { useParams, Link } from "react-router-dom";
+import data from "../data/clubData.json";
+import SEO from "../components/SEO.jsx";
 
 function getMatch(id) {
-  return data.matches.find(m => m.id === id)
+  console.log(id);
+
+  return data.matches.find((m) => m.id === id);
 }
 
 function computeOutcome(m) {
-  let setsA = 0, setsB = 0
+  console.log(m);
+
+  let setsA = 0,
+    setsB = 0;
   for (const s of m.sets) {
-    if (s.A > s.B) setsA++
-    else if (s.B > s.A) setsB++
+    if (s.A > s.B) setsA++;
+    else if (s.B > s.A) setsB++;
   }
-  const winner = setsA > setsB ? m.playerA : m.playerB
-  return { setsA, setsB, winner }
+  const winner = setsA > setsB ? m.playerA : m.playerB;
+  return { setsA, setsB, winner };
 }
 
 const MatchDetailsPage = () => {
-  const { id } = useParams()
-  const match = getMatch(id)
+  const { id } = useParams();
+  const match = getMatch(id);
   if (!match) {
     return (
       <div className="main-card">
         <h2>Match Not Found</h2>
         <p>The match with ID {id} does not exist.</p>
-        <Link to="/matches" className="btn">Back to Matches</Link>
+        <Link to="/matches" className="btn">
+          Back to Matches
+        </Link>
       </div>
-    )
+    );
   }
 
-  const title = `Match ${match.id}: ${match.playerA} vs ${match.playerB} — ${match.division}`
-  const desc = `Final Score ${computeOutcome(match).setsA}-${computeOutcome(match).setsB} • Best-of-three • Neutral venue.`
+  const title = `Match ${match.id}: ${match.playerA} vs ${match.playerB} — ${match.division}`;
+  const desc = `Final Score ${computeOutcome(match).setsA}-${
+    computeOutcome(match).setsB
+  } • Best-of-three • Neutral venue.`;
 
-  const startDate = match.date && match.time ? `${match.date}T${match.time}:00` : undefined
+  const startDate =
+    match.date && match.time ? `${match.date}T${match.time}:00` : undefined;
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SportsEvent",
-    "name": title,
-    ...(startDate ? { "startDate": startDate } : {}),
-    "eventStatus": "https://schema.org/EventCompleted",
-    "sport": "Table Tennis",
-    "location": {
+    name: title,
+    ...(startDate ? { startDate: startDate } : {}),
+    eventStatus: "https://schema.org/EventCompleted",
+    sport: "Table Tennis",
+    location: {
       "@type": "Place",
-      "name": "Neutral Venue"
+      name: "Neutral Venue",
     },
-    "competitor": match.players.map(p => ({ "@type": "Person", "name": p })),
-    "result": {
+    competitor: match.players.map((p) => ({ "@type": "Person", name: p })),
+    result: {
       "@type": "AggregateRating",
-      "ratingCount": 1,
-      "ratingValue": `${match.score[0]}-${match.score[1]}`
-    }
-  }
+      ratingCount: 1,
+      ratingValue: `${match.score[0]}-${match.score[1]}`,
+    },
+  };
 
-  const outcome = match.status === 'completed' ? computeOutcome(match) : null
+  const outcome = match.status === "completed" ? computeOutcome(match) : null;
 
   return (
     <div className="main-card">
@@ -66,27 +76,44 @@ const MatchDetailsPage = () => {
         jsonLd={jsonLd}
       />
       <h2 style={{ marginTop: 0 }}>Match Details — {match.id}</h2>
-      <p style={{ color: '#9db4ff' }}>{match.division} • Neutral Venue • {match.date} {match.time}</p>
-      <h3>{match.playerA} vs {match.playerB}</h3>
-      {match.status === 'completed' ? (
+      <p style={{ color: "#9db4ff" }}>
+        {match.division} • Neutral Venue • {match.date} {match.time}
+      </p>
+      <h3>
+        {match.playerA} vs {match.playerB}
+      </h3>
+      {match.status === "completed" ? (
         <div>
-          <p><strong>Final:</strong> {outcome.winner} wins {outcome.setsA}-{outcome.setsB}</p>
+          <p>
+            <strong>Final:</strong> {outcome.winner} wins {outcome.setsA}-
+            {outcome.setsB}
+          </p>
           <div className="table-wrapper">
             <table className="table">
               <thead>
                 <tr>
-                  <th>Set</th><th>{match.playerA}</th><th>{match.playerB}</th>
+                  <th>Set</th>
+                  <th>{match.playerA}</th>
+                  <th>{match.playerB}</th>
                 </tr>
               </thead>
               <tbody>
                 {match.sets.map((s, i) => (
-                  <tr key={i}><td>{i + 1}</td><td>{s.A}</td><td>{s.B}</td></tr>
+                  <tr key={i}>
+                    <td>{i + 1}</td>
+                    <td>{s.A}</td>
+                    <td>{s.B}</td>
+                  </tr>
                 ))}
               </tbody>
             </table>
           </div>
           {match.stats && (
-            <p style={{ marginTop: 8 }}>Duration: {match.stats.durationMinutes} min{match.stats.umpire ? ` • Umpire: ${match.stats.umpire}` : ''}{match.stats.notes ? ` • ${match.stats.notes}` : ''}</p>
+            <p style={{ marginTop: 8 }}>
+              Duration: {match.stats.durationMinutes} min
+              {match.stats.umpire ? ` • Umpire: ${match.stats.umpire}` : ""}
+              {match.stats.notes ? ` • ${match.stats.notes}` : ""}
+            </p>
           )}
         </div>
       ) : (
@@ -96,7 +123,7 @@ const MatchDetailsPage = () => {
         <Link to="/matches">Back to matches</Link>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default MatchDetailsPage
+export default MatchDetailsPage;
