@@ -1,6 +1,7 @@
 import React from 'react'
 import { useParams, Link } from 'react-router-dom'
 import data from '../data/clubData.json'
+import SEO from '../components/SEO.jsx'
 
 function getMatch(id) {
   return data.matches.find(m => m.id === id)
@@ -18,42 +19,74 @@ function computeOutcome(m) {
 
 const MatchDetailsPage = () => {
   const { id } = useParams()
-  const m = getMatch(id)
-  if (!m) {
+  const match = getMatch(id)
+  if (!match) {
     return (
       <div className="main-card">
-        <p>Match not found.</p>
-        <Link to="/matches">Back to matches</Link>
+        <h2>Match Not Found</h2>
+        <p>The match with ID {id} does not exist.</p>
+        <Link to="/matches" className="btn">Back to Matches</Link>
       </div>
     )
   }
 
-  const outcome = m.status === 'completed' ? computeOutcome(m) : null
+  const title = `Match ${match.id}: ${match.playerA} vs ${match.playerB} — ${match.division}`
+  const desc = `Final Score ${computeOutcome(match).setsA}-${computeOutcome(match).setsB} • Best-of-three • Neutral venue.`
+
+  const startDate = match.date && match.time ? `${match.date}T${match.time}:00` : undefined
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SportsEvent",
+    "name": title,
+    ...(startDate ? { "startDate": startDate } : {}),
+    "eventStatus": "https://schema.org/EventCompleted",
+    "sport": "Table Tennis",
+    "location": {
+      "@type": "Place",
+      "name": "Neutral Venue"
+    },
+    "competitor": match.players.map(p => ({ "@type": "Person", "name": p })),
+    "result": {
+      "@type": "AggregateRating",
+      "ratingCount": 1,
+      "ratingValue": `${match.score[0]}-${match.score[1]}`
+    }
+  }
+
+  const outcome = match.status === 'completed' ? computeOutcome(match) : null
 
   return (
     <div className="main-card">
-      <h2 style={{ marginTop: 0 }}>Match Details — {m.id}</h2>
-      <p style={{ color: '#9db4ff' }}>{m.division} • Neutral Venue • {m.date} {m.time}</p>
-      <h3>{m.playerA} vs {m.playerB}</h3>
-      {m.status === 'completed' ? (
+      <SEO
+        title={title}
+        description={desc}
+        canonicalPath={`/matches/${match.id}`}
+        ogTitle={title}
+        ogDescription={desc}
+        jsonLd={jsonLd}
+      />
+      <h2 style={{ marginTop: 0 }}>Match Details — {match.id}</h2>
+      <p style={{ color: '#9db4ff' }}>{match.division} • Neutral Venue • {match.date} {match.time}</p>
+      <h3>{match.playerA} vs {match.playerB}</h3>
+      {match.status === 'completed' ? (
         <div>
           <p><strong>Final:</strong> {outcome.winner} wins {outcome.setsA}-{outcome.setsB}</p>
           <div className="table-wrapper">
             <table className="table">
               <thead>
                 <tr>
-                  <th>Set</th><th>{m.playerA}</th><th>{m.playerB}</th>
+                  <th>Set</th><th>{match.playerA}</th><th>{match.playerB}</th>
                 </tr>
               </thead>
               <tbody>
-                {m.sets.map((s, i) => (
+                {match.sets.map((s, i) => (
                   <tr key={i}><td>{i + 1}</td><td>{s.A}</td><td>{s.B}</td></tr>
                 ))}
               </tbody>
             </table>
           </div>
-          {m.stats && (
-            <p style={{ marginTop: 8 }}>Duration: {m.stats.durationMinutes} min{m.stats.umpire ? ` • Umpire: ${m.stats.umpire}` : ''}{m.stats.notes ? ` • ${m.stats.notes}` : ''}</p>
+          {match.stats && (
+            <p style={{ marginTop: 8 }}>Duration: {match.stats.durationMinutes} min{match.stats.umpire ? ` • Umpire: ${match.stats.umpire}` : ''}{match.stats.notes ? ` • ${match.stats.notes}` : ''}</p>
           )}
         </div>
       ) : (

@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import data from "../data/clubData.json";
+import SEO from "../components/SEO.jsx";
 
 const MatchesPage = () => {
   const [division, setDivision] = useState("All");
@@ -11,7 +12,12 @@ const MatchesPage = () => {
   }, [division]);
 
   return (
-    <div className="main-card">
+    <div className="matches-page main-card">
+      <SEO
+        title="Matches — TJ Table Tennis Club"
+        description="Browse TJ TTC match archive. Filter by division and view details."
+        canonicalPath="/matches"
+      />
       <div className="division-toggle">
         {["All", ...Object.keys(data.divisions)].map((d) => (
           <button

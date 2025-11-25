@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
 import data from "../data/clubData.json";
+import SEO from "../components/SEO.jsx";
 
 const columns = [
   { key: "rank", label: "#" },
@@ -91,7 +92,12 @@ const TablePage = () => {
   };
 
   return (
-    <div className="main-card">
+    <div className="table-page main-card">
+      <SEO
+        title="Standings — TJ Table Tennis Club"
+        description="Live standings for TJ TTC across divisions. Sortable stats from match results."
+        canonicalPath="/table"
+      />
       <div className="division-toggle">
         {Object.keys(data.divisions).map((d) => (
           <button

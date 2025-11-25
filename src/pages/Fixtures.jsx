@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import data from '../data/clubData.json'
+import SEO from '../components/SEO.jsx'
 
 function shuffle(array) {
   const a = [...array]
@@ -31,7 +32,12 @@ const FixturesPage = () => {
   }, [division, seed])
 
   return (
-    <div className="main-card">
+    <div className="fixtures-page main-card">
+      <SEO
+        title="Random Fixtures — TJ Table Tennis Club"
+        description="Generate random fixtures per division for TJ TTC. Best-of-three, neutral venue."
+        canonicalPath="/fixtures"
+      />
       <div className="division-toggle">
         {Object.keys(data.divisions).map(d => (
           <button key={d} className={d === division ? 'active' : ''} onClick={() => setDivision(d)}>

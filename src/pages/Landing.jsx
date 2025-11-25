@@ -5,6 +5,7 @@ import heroImg from "../assets/placeholders/hero.svg";
 import action1 from "../assets/placeholders/action1.svg";
 import action2 from "../assets/placeholders/action2.svg";
 import venueImg from "../assets/placeholders/venue.svg";
+import SEO from "../components/SEO.jsx";
 
 const Landing = () => {
   const d1Count = data.divisions["Division 1"].length;
@@ -12,6 +13,22 @@ const Landing = () => {
 
   return (
     <div className="landing">
+      <SEO
+        title="TJ Table Tennis Club — Home"
+        description="Premier League-inspired table, fixtures, and match stats for TJ TTC. Neutral venue, best-of-three."
+        canonicalPath="/"
+        ogTitle="TJ Table Tennis Club"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "SportsClub",
+          "name": "TJ Table Tennis Club",
+          "sport": "Table Tennis",
+          "member": [
+            { "@type": "Person", "name": "Division 1 Players" },
+            { "@type": "Person", "name": "Division 2 Players" }
+          ]
+        }}
+      />
       {/* Hero */}
       <section className="hero glass" aria-label="Club hero">
         <div>
