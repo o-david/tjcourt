@@ -55,7 +55,7 @@ const MatchDetailsPage = () => {
       "@type": "Place",
       name: "Neutral Venue",
     },
-    competitor: match.players.map((p) => ({ "@type": "Person", name: p })),
+    // competitor: match.players.map((p) => ({ "@type": "Person", name: p })),
     result: {
       "@type": "AggregateRating",
       ratingCount: 1,
