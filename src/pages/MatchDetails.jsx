@@ -110,13 +110,13 @@ const MatchDetailsPage = () => {
               </tbody> */}
               </table>
             </div>
-            {match.stats && (
+            {/* {match.stats && (
               <p style={{ marginTop: 8 }}>
                 Duration: {match.stats.durationMinutes} min
                 {match.stats.umpire ? ` • Umpire: ${match.stats.umpire}` : ""}
                 {match.stats.notes ? ` • ${match.stats.notes}` : ""}
               </p>
-            )}
+            )} */}
           </div>
         ) : (
           <p>Scheduled — best of three. No scores yet.</p>
