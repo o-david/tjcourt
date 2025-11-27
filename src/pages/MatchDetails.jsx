@@ -99,15 +99,15 @@ const MatchDetailsPage = () => {
                     <th>{match.playerB}</th>
                   </tr>
                 </thead>
-                {/* <tbody>
-                {match.sets.map((s, i) => (
-                  <tr key={i}>
-                    <td>{i + 1}</td>
-                    <td>{s.A}</td>
-                    <td>{s.B}</td>
-                  </tr>
-                ))}
-              </tbody> */}
+                <tbody>
+                  {match.sets.map((s, i) => (
+                    <tr key={i}>
+                      <td>{i + 1}</td>
+                      <td>{s.A}</td>
+                      <td>{s.B}</td>
+                    </tr>
+                  ))}
+                </tbody>
               </table>
             </div>
             {/* {match.stats && (
