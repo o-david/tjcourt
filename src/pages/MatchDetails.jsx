@@ -86,10 +86,10 @@ const MatchDetailsPage = () => {
         </h3>
         {match.status === "completed" ? (
           <div>
-            <p>
+            {/* <p>
               <strong>Final:</strong> {outcome.winner} wins {outcome.setsA}-
               {outcome.setsB}
-            </p>
+            </p> */}
             <div className="table-wrapper">
               <table className="table">
                 <thead>
