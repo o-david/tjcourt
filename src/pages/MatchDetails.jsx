@@ -37,45 +37,45 @@ const MatchDetailsPage = () => {
     );
   }
 
-  const title = `Match ${match.id}: ${match.playerA} vs ${match.playerB} — ${match.division}`;
-  const desc = `Final Score ${computeOutcome(match).setsA}-${
-    computeOutcome(match).setsB
-  } • Best-of-three • Neutral venue.`;
+  // const title = `Match ${match.id}: ${match.playerA} vs ${match.playerB} — ${match.division}`;
+  // const desc = `Final Score ${computeOutcome(match).setsA}-${
+  //   computeOutcome(match).setsB
+  // } • Best-of-three • Neutral venue.`;
 
-  const startDate =
-    match.date && match.time ? `${match.date}T${match.time}:00` : undefined;
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "SportsEvent",
-    name: title,
-    ...(startDate ? { startDate: startDate } : {}),
-    eventStatus: "https://schema.org/EventCompleted",
-    sport: "Table Tennis",
-    location: {
-      "@type": "Place",
-      name: "Neutral Venue",
-    },
-    // competitor: match.players.map((p) => ({ "@type": "Person", name: p })),
-    result: {
-      "@type": "AggregateRating",
-      ratingCount: 1,
-      ratingValue: `${match.score[0]}-${match.score[1]}`,
-    },
-  };
+  // const startDate =
+  //   match.date && match.time ? `${match.date}T${match.time}:00` : undefined;
+  // const jsonLd = {
+  //   "@context": "https://schema.org",
+  //   "@type": "SportsEvent",
+  //   name: title,
+  //   ...(startDate ? { startDate: startDate } : {}),
+  //   eventStatus: "https://schema.org/EventCompleted",
+  //   sport: "Table Tennis",
+  //   location: {
+  //     "@type": "Place",
+  //     name: "Neutral Venue",
+  //   },
+  //   // competitor: match.players.map((p) => ({ "@type": "Person", name: p })),
+  //   result: {
+  //     "@type": "AggregateRating",
+  //     ratingCount: 1,
+  //     ratingValue: `${match.score[0]}-${match.score[1]}`,
+  //   },
+  // };
 
-  const outcome = match.status === "completed" ? computeOutcome(match) : null;
+  // const outcome = match.status === "completed" ? computeOutcome(match) : null;
 
   return (
     match && (
       <div className="main-card">
-        <SEO
+        {/* <SEO
           title={title}
           description={desc}
           canonicalPath={`/matches/${match.id}`}
           ogTitle={title}
           ogDescription={desc}
           jsonLd={jsonLd}
-        />
+        /> */}
 
         <h2 style={{ marginTop: 0 }}>Match Details — {match.id}</h2>
         <p style={{ color: "#9db4ff" }}>
