@@ -66,38 +66,40 @@ const MatchDetailsPage = () => {
   const outcome = match.status === "completed" ? computeOutcome(match) : null;
 
   return (
-    <div className="main-card">
-      <SEO
-        title={title}
-        description={desc}
-        canonicalPath={`/matches/${match.id}`}
-        ogTitle={title}
-        ogDescription={desc}
-        jsonLd={jsonLd}
-      />
-      <h2 style={{ marginTop: 0 }}>Match Details — {match.id}</h2>
-      <p style={{ color: "#9db4ff" }}>
-        {match.division} • Neutral Venue • {match.date} {match.time}
-      </p>
-      <h3>
-        {match.playerA} vs {match.playerB}
-      </h3>
-      {match.status === "completed" ? (
-        <div>
-          <p>
-            <strong>Final:</strong> {outcome.winner} wins {outcome.setsA}-
-            {outcome.setsB}
-          </p>
-          <div className="table-wrapper">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Set</th>
-                  <th>{match.playerA}</th>
-                  <th>{match.playerB}</th>
-                </tr>
-              </thead>
-              {/* <tbody>
+    match && (
+      <div className="main-card">
+        <SEO
+          title={title}
+          description={desc}
+          canonicalPath={`/matches/${match.id}`}
+          ogTitle={title}
+          ogDescription={desc}
+          jsonLd={jsonLd}
+        />
+
+        <h2 style={{ marginTop: 0 }}>Match Details — {match.id}</h2>
+        <p style={{ color: "#9db4ff" }}>
+          {match.division} • Neutral Venue • {match.date} {match.time}
+        </p>
+        <h3>
+          {match.playerA} vs {match.playerB}
+        </h3>
+        {match.status === "completed" ? (
+          <div>
+            <p>
+              <strong>Final:</strong> {outcome.winner} wins {outcome.setsA}-
+              {outcome.setsB}
+            </p>
+            <div className="table-wrapper">
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Set</th>
+                    <th>{match.playerA}</th>
+                    <th>{match.playerB}</th>
+                  </tr>
+                </thead>
+                {/* <tbody>
                 {match.sets.map((s, i) => (
                   <tr key={i}>
                     <td>{i + 1}</td>
@@ -106,23 +108,24 @@ const MatchDetailsPage = () => {
                   </tr>
                 ))}
               </tbody> */}
-            </table>
+              </table>
+            </div>
+            {match.stats && (
+              <p style={{ marginTop: 8 }}>
+                Duration: {match.stats.durationMinutes} min
+                {match.stats.umpire ? ` • Umpire: ${match.stats.umpire}` : ""}
+                {match.stats.notes ? ` • ${match.stats.notes}` : ""}
+              </p>
+            )}
           </div>
-          {match.stats && (
-            <p style={{ marginTop: 8 }}>
-              Duration: {match.stats.durationMinutes} min
-              {match.stats.umpire ? ` • Umpire: ${match.stats.umpire}` : ""}
-              {match.stats.notes ? ` • ${match.stats.notes}` : ""}
-            </p>
-          )}
+        ) : (
+          <p>Scheduled — best of three. No scores yet.</p>
+        )}
+        <div style={{ marginTop: 12 }}>
+          <Link to="/matches">Back to matches</Link>
         </div>
-      ) : (
-        <p>Scheduled — best of three. No scores yet.</p>
-      )}
-      <div style={{ marginTop: 12 }}>
-        <Link to="/matches">Back to matches</Link>
       </div>
-    </div>
+    )
   );
 };
 
