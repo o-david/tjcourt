@@ -243,8 +243,8 @@
         {
             "id": "D1-104",
             "division": "Division 1",
-            "playerA": "Jerry",
-            "playerB": "Pastor",
+            "playerA": "Pastor",
+            "playerB": "Jerry",
             "date": "2025-11-26",
             "time": "19:39",
             "venue": "Neutral",
