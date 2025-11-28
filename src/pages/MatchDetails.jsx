@@ -63,7 +63,12 @@ const MatchDetailsPage = () => {
   //   },
   // };
 
-  // const outcome = match.status === "completed" ? computeOutcome(match) : null;
+  const outcome =
+    match.status === "completed"
+      ? computeOutcome(match)
+        ? computeOutcome(match)
+        : null
+      : null;
 
   return (
     match && (
@@ -85,39 +90,41 @@ const MatchDetailsPage = () => {
           {match.playerA} vs {match.playerB}
         </h3>
         {match.status === "completed" ? (
-          <div>
-            {/* <p>
-              <strong>Final:</strong> {outcome.winner} wins {outcome.setsA}-
-              {outcome.setsB}
-            </p> */}
-            <div className="table-wrapper">
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>Set</th>
-                    <th>{match.playerA}</th>
-                    <th>{match.playerB}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {match.sets.map((s, i) => (
-                    <tr key={i}>
-                      <td>{i + 1}</td>
-                      <td>{s.A}</td>
-                      <td>{s.B}</td>
+          outcome && (
+            <div>
+              <p>
+                <strong>Final:</strong> {outcome.winner} wins {outcome.setsA}-
+                {outcome.setsB}
+              </p>
+              <div className="table-wrapper">
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th>Set</th>
+                      <th>{match.playerA}</th>
+                      <th>{match.playerB}</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            {/* {match.stats && (
+                  </thead>
+                  <tbody>
+                    {match.sets.map((s, i) => (
+                      <tr key={i}>
+                        <td>{i + 1}</td>
+                        <td>{s.A}</td>
+                        <td>{s.B}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              {/* {match.stats && (
               <p style={{ marginTop: 8 }}>
                 Duration: {match.stats.durationMinutes} min
                 {match.stats.umpire ? ` • Umpire: ${match.stats.umpire}` : ""}
                 {match.stats.notes ? ` • ${match.stats.notes}` : ""}
               </p>
             )} */}
-          </div>
+            </div>
+          )
         ) : (
           <p>Scheduled — best of three. No scores yet.</p>
         )}
