@@ -1,12 +1,23 @@
 import { useEffect } from 'react'
 
-function ensureTag(selector, create) {
-  let el = document.head.querySelector(selector)
+function ensureTag<T extends HTMLElement>(selector: string, create: () => T): T {
+  let el = document.head.querySelector(selector) as T | null
   if (!el) {
     el = create()
     document.head.appendChild(el)
   }
-  return el
+  return el!
+}
+
+export interface SEOProps {
+  title?: string
+  description?: string
+  canonicalPath?: string
+  ogTitle?: string
+  ogDescription?: string
+  ogImage?: string
+  twitterCard?: 'summary' | 'summary_large_image' | 'player' | 'app'
+  jsonLd?: Record<string, unknown>
 }
 
 export default function SEO({
@@ -18,12 +29,10 @@ export default function SEO({
   ogImage = '/tj-logo.svg',
   twitterCard = 'summary',
   jsonLd
-}) {
+}: SEOProps) {
   useEffect(() => {
-    // Title
     if (title) document.title = title
 
-    // Description
     if (description) {
       const metaDesc = ensureTag('meta[name="description"]', () => {
         const m = document.createElement('meta')
@@ -33,7 +42,6 @@ export default function SEO({
       metaDesc.setAttribute('content', description)
     }
 
-    // Canonical
     if (canonicalPath) {
       const linkCanonical = ensureTag('link[rel="canonical"]', () => {
         const l = document.createElement('link')
@@ -44,7 +52,6 @@ export default function SEO({
       linkCanonical.setAttribute('href', origin + canonicalPath)
     }
 
-    // Open Graph
     const og = {
       'og:type': 'website',
       'og:site_name': 'TJ Table Tennis Club',
@@ -52,7 +59,7 @@ export default function SEO({
       'og:description': ogDescription || description || 'Standings, fixtures and match stats.',
       'og:image': ogImage,
       'og:url': canonicalPath ? (window.location.origin + canonicalPath) : window.location.href
-    }
+    } as Record<string, string>
     Object.entries(og).forEach(([prop, content]) => {
       const el = ensureTag(`meta[property="${prop}"]`, () => {
         const m = document.createElement('meta')
@@ -62,13 +69,12 @@ export default function SEO({
       el.setAttribute('content', content)
     })
 
-    // Twitter
     const tw = {
       'twitter:card': twitterCard,
       'twitter:title': ogTitle || title || 'TJ Table Tennis Club',
       'twitter:description': ogDescription || description || 'Standings, fixtures and match stats.',
       'twitter:image': ogImage
-    }
+    } as Record<string, string>
     Object.entries(tw).forEach(([name, content]) => {
       const el = ensureTag(`meta[name="${name}"]`, () => {
         const m = document.createElement('meta')
@@ -78,9 +84,8 @@ export default function SEO({
       el.setAttribute('content', content)
     })
 
-    // JSON-LD
     const jsonId = 'jsonld-seo'
-    let jsonTag = document.getElementById(jsonId)
+    let jsonTag = document.getElementById(jsonId) as HTMLScriptElement | null
     if (jsonLd) {
       if (!jsonTag) {
         jsonTag = document.createElement('script')
