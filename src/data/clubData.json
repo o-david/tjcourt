@@ -440,26 +440,6 @@
             "playerA": "Pastor",
             "playerB": "Pedro Snr",
             "date": "2025-11-29",
-            "time": "10:38",
-            "venue": "Neutral",
-            "status": "completed",
-            "sets": [
-                {
-                    "A": 11,
-                    "B": 8
-                },
-                {
-                    "A": 11,
-                    "B": 9
-                }
-            ]
-        },
-        {
-            "id": "D1-107",
-            "division": "Division 1",
-            "playerA": "Pastor",
-            "playerB": "Pedro Snr",
-            "date": "2025-11-29",
             "time": "10:34",
             "venue": "Neutral",
             "status": "completed",
@@ -1292,7 +1272,7 @@
         },
         {
             "id": "D1-136",
-            "division": "`Division 1",
+            "division": "Division 1",
             "playerA": "Pedro Snr",
             "playerB": "Phillip",
             "date": "2025-11-30",
