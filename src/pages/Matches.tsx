@@ -1,17 +1,15 @@
-import React, { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
-import clubData from '../data/clubData.json'
-import SEO from '../components/SEO'
-import { ClubData, Match } from '../types'
+import React, { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+import data from "../data/clubData.json";
+import SEO from "../components/SEO.jsx";
 
-const data = clubData as ClubData
-
-const Matches: React.FC = () => {
-  const [division, setDivision] = useState<string>('All')
-
-  const matches = useMemo<Match[]>(() => {
-    return data.matches.filter((m) => (division === 'All' ? true : m.division === division))
-  }, [division])
+const MatchesPage = () => {
+  const [division, setDivision] = useState("All");
+  const matches = useMemo(() => {
+    return data.matches.filter((m) =>
+      division === "All" ? true : m.division === division
+    );
+  }, [division]);
 
   return (
     <div className="matches-page main-card">
@@ -21,14 +19,20 @@ const Matches: React.FC = () => {
         canonicalPath="/matches"
       />
       <div className="division-toggle">
-        {['All', ...Object.keys(data.divisions)].map((d) => (
-          <button key={d} className={d === division ? 'active' : ''} onClick={() => setDivision(d)}>
+        {["All", ...Object.keys(data.divisions)].map((d) => (
+          <button
+            key={d}
+            className={d === division ? "active" : ""}
+            onClick={() => setDivision(d)}
+          >
             {d}
           </button>
         ))}
       </div>
       <div>
-        <h2 style={{ marginTop: 0 }}>Matches {division !== 'All' ? `— ${division}` : ''}</h2>
+        <h2 style={{ marginTop: 0 }}>
+          Matches {division !== "All" ? `— ${division}` : ""}
+        </h2>
         <div className="table-wrapper">
           <table className="table">
             <thead>
@@ -61,7 +65,7 @@ const Matches: React.FC = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Matches
+export default MatchesPage;
