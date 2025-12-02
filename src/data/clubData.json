@@ -2048,26 +2048,6 @@
             "playerA": "Mansir Pedro",
             "playerB": "Mr Welfare",
             "date": "2025-12-01",
-            "time": "21:30",
-            "venue": "Neutral",
-            "status": "completed",
-            "sets": [
-                {
-                    "A": 11,
-                    "B": 13
-                },
-                {
-                    "A": 10,
-                    "B": 12
-                }
-            ]
-        },
-        {
-            "id": "D2-145",
-            "division": "Division 2",
-            "playerA": "Mansir Pedro",
-            "playerB": "Mr Welfare",
-            "date": "2025-12-01",
             "time": "21:36",
             "venue": "Neutral",
             "status": "completed",
