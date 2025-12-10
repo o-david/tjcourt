@@ -23,7 +23,6 @@
             "Big Emma",
             "Chairman",
             "Etuk",
-            "Husman Abdul",
             "Isaac",
             "Mansir Pedro",
             "Michael",
@@ -931,26 +930,6 @@
             ]
         },
         {
-            "id": "D2-120",
-            "division": "Division 2",
-            "playerA": "Michael",
-            "playerB": "Raymond",
-            "date": "2025-11-29",
-            "time": "14:24",
-            "venue": "Neutral",
-            "status": "completed",
-            "sets": [
-                {
-                    "A": 11,
-                    "B": 5
-                },
-                {
-                    "A": 11,
-                    "B": 2
-                }
-            ]
-        },
-        {
             "id": "D1-125",
             "division": "Division 1",
             "playerA": "David",
@@ -971,26 +950,6 @@
                 {
                     "A": 11,
                     "B": 9
-                }
-            ]
-        },
-        {
-            "id": "D2-121",
-            "division": "Division 2",
-            "playerA": "Raymond",
-            "playerB": "Big Emma",
-            "date": "2025-11-29",
-            "time": "14:44",
-            "venue": "Neutral",
-            "status": "completed",
-            "sets": [
-                {
-                    "A": 3,
-                    "B": 11
-                },
-                {
-                    "A": 6,
-                    "B": 11
                 }
             ]
         },
